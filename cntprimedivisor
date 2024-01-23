@@ -1,0 +1,26 @@
+vector<int>ar(5000001,0);
+vector<int>pr(5000001,0);
+void pri(){
+    for(int i = 2;i<=5000000;i++){
+        ar[i] = i;
+    }
+for(int i = 2;i*i<=5000000;i++){ 
+    if(ar[i]==i){ 
+        ar[i] = i;
+        for(int j = i*i;j<=5000000;j+=i){
+        ar[j] = i;
+    }
+    }
+    
+}
+pr[1] = 0;
+for(int i = 2;i<=5000000;i++){
+    pr[i] = pr[i/ar[i]]+1;
+}
+for(int  i =1;i<=5000000;i++){
+    pr[i]+=pr[i-1];
+}
+// for(auto it:pr){
+//     cout<<it<<" ";
+// }
+}
