@@ -1,12 +1,8 @@
+long long int bin(long long int a,long long int n,long long int p) 
+{long long int res = 1; while(n) 
 { 
-int res = 1;
- while(n) 
-{
- if(n%2)
- {  res = (res*a)%p; n--;}
- else {
-  a=(a*a)%p; n/=2;
-} 
+    if(n%2)
+ {  res = (res*a)%p; n--;} 
+else {  a=(a*a)%p; n/=2;} 
  }
- return res;
-}
+ return res;}
