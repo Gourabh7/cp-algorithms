@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+class manacher
+{
+    vector<int> p;
+
+public:
+    void run_manacher(string s)
+    {
+        int l = 1;
+        int r = 1;
+        int n = s.size();
+        p.assign(n, 1);
+        for (int i = 1; i < n; i++)
+        {
+            p[i] = max(1, min(r - i, p[l + r - i]));
+            while (i + p[i] < n && i - p[i] >= 0 && s[i - p[i]] == s[i + p[i]])
+            {
+                p[i]++;
+            }
+            if (i + p[i] > r)
+            {
+                l = i - p[i];
+                r = i + p[i];
+            }
+        }
+    }
+    int getlongest(int cen, bool odd)
+    {
+        int pos = 2 * cen + 1 + (odd == 0);
+        return p[pos] - 1;
+    }
+    bool checkpalin(int l, int r)
+    {
+        if ((r - l + 1) <= getlongest((l + r) / 2, l % 2 == r % 2))
+        {
+            return 1;
+        }
+        return 0;
+    }
+    void build(string s)
+    {
+        string t = "$";
+        t+='#';
+        for (int i = 0; i < s.size(); i++)
+        {
+            t += s[i];
+            t += '#';
+        }
+        t+='@';
+        cout << t << endl;
+        run_manacher(t);
+    }
+};
+int main()
+{
+    manacher m;
+    m.build("aaa");
+    cout << m.getlongest(1, 1);
+}
